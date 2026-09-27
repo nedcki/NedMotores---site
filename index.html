@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Ned AutoGestão — Sistema completo de gestão para oficinas mecânicas. Controle de O.S., estoque, financeiro, revisões e muito mais.">
+<title>Ned AutoGestão — Sistema para Oficinas Mecânicas</title>
+
+<!-- ════════════════════════════════════════════════════════
+     CONFIGURAÇÕES DO SITE — EDITE AQUI
+     ════════════════════════════════════════════════════════ -->
+<script>
+const CONFIG = {
+  telefone:       "(XX) 9XXXX-XXXX",   // ← seu telefone/WhatsApp
+  whatsapp:       "5500000000000",       // ← número com DDI+DDD sem espaços (para link wa.me)
+  email:          "contato@nedmotores.com.br",
+  instagram:      "",                    // ← @seuinstagram (deixe vazio para ocultar)
+  cidade:         "Sua Cidade — UF",
+  url_download:   "https://nedmotores.com.br/download/NedAutoGestao-Setup.exe",
+  versao_atual:   "1.0.0",
+};
+</script>
+<!-- ════════════════════════════════════════════════════════ -->
+
+<style>
+:root {
+  --bg:      #0d1117;
+  --surface: #161b22;
+  --card:    #1c2128;
+  --border:  #30363d;
+  --text:    #e6edf3;
+  --text2:   #8b949e;
+  --primary: #2563eb;
+  --primary-light: #1d4ed8;
+  --accent:  #f97316;
+  --green:   #22c55e;
+  --purple:  #a855f7;
+  --radius:  12px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.6;font-size:16px}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+
+/* Nav */
+nav{position:sticky;top:0;z-index:100;background:#0d1117ee;backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 5vw}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-size:20px;font-weight:700;display:flex;align-items:center;gap:10px}
+.logo-icon{width:36px;height:36px;background:var(--primary);border-radius:8px;display:grid;place-items:center;font-size:18px}
+.nav-links{display:flex;gap:32px;font-size:14px;color:var(--text2)}
+.nav-links a:hover{color:var(--text);transition:.2s}
+.nav-cta{background:var(--primary);color:#fff;padding:8px 20px;border-radius:8px;font-size:14px;font-weight:600;transition:.2s}
+.nav-cta:hover{background:var(--primary-light)}
+@media(max-width:700px){.nav-links{display:none}}
+
+/* Hero */
+.hero{padding:100px 5vw 80px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,#1d4ed830,transparent);pointer-events:none}
+.hero-badge{display:inline-block;background:#1d4ed820;border:1px solid #2563eb50;color:#60a5fa;font-size:12px;font-weight:600;letter-spacing:.5px;padding:4px 14px;border-radius:99px;margin-bottom:20px;text-transform:uppercase}
+.hero h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:800;line-height:1.15;margin-bottom:20px;max-width:800px;margin-inline:auto}
+.hero h1 span{color:var(--accent)}
+.hero p{font-size:18px;color:var(--text2);max-width:580px;margin:0 auto 36px}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn{padding:13px 28px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;border:none;transition:.2s;display:inline-flex;align-items:center;gap:8px}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:var(--primary-light);transform:translateY(-1px);box-shadow:0 8px 24px #2563eb40}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-outline:hover{border-color:var(--text2);background:#ffffff08}
+.hero-note{font-size:13px;color:var(--text2);margin-top:14px}
+
+/* Features */
+section{padding:80px 5vw}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-label{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--primary);margin-bottom:12px}
+.section-title{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;margin-bottom:16px}
+.section-sub{font-size:16px;color:var(--text2);max-width:600px}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:48px}
+.feat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:28px;transition:.2s}
+.feat-card:hover{border-color:var(--primary);transform:translateY(-2px)}
+.feat-icon{font-size:32px;margin-bottom:16px}
+.feat-card h3{font-size:16px;font-weight:700;margin-bottom:8px}
+.feat-card p{font-size:14px;color:var(--text2);line-height:1.6}
+
+/* Planos */
+#planos{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:48px}
+.plan-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;position:relative;transition:.2s}
+.plan-card.popular{border-color:var(--primary);box-shadow:0 0 0 1px var(--primary)}
+.popular-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--primary);color:#fff;font-size:11px;font-weight:700;padding:3px 14px;border-radius:99px;letter-spacing:.5px;white-space:nowrap}
+.plan-name{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);margin-bottom:8px}
+.plan-price{font-size:42px;font-weight:800;margin-bottom:4px}
+.plan-price span{font-size:16px;font-weight:400;color:var(--text2)}
+.plan-desc{font-size:13px;color:var(--text2);margin-bottom:24px;min-height:36px}
+.plan-features{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.plan-features li{font-size:14px;display:flex;align-items:flex-start;gap:10px}
+.plan-features li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px}
+.plan-features li.off{color:var(--text2)}
+.plan-features li.off::before{content:'–';color:var(--border)}
+.plan-btn{display:block;text-align:center;padding:12px;border-radius:8px;font-size:14px;font-weight:700;transition:.2s;cursor:pointer;background:var(--border);color:var(--text)}
+.plan-btn:hover{background:var(--text2);color:var(--bg)}
+.plan-card.popular .plan-btn{background:var(--primary);color:#fff}
+.plan-card.popular .plan-btn:hover{background:var(--primary-light)}
+
+/* How it works */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;margin-top:48px;text-align:center}
+.step-num{width:48px;height:48px;background:var(--primary);border-radius:12px;display:grid;place-items:center;font-size:20px;font-weight:800;margin:0 auto 16px}
+.step h3{font-size:15px;font-weight:700;margin-bottom:8px}
+.step p{font-size:13px;color:var(--text2)}
+
+/* CTA */
+.cta-section{background:linear-gradient(135deg,#1d4ed820,#7c3aed10);border-top:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center;padding:80px 5vw}
+.cta-section h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;margin-bottom:16px}
+.cta-section p{color:var(--text2);margin-bottom:32px;font-size:16px}
+
+/* Contact */
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:40px}
+.contact-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center}
+.contact-card .icon{font-size:28px;margin-bottom:12px}
+.contact-card h3{font-size:14px;font-weight:700;margin-bottom:6px}
+.contact-card p,.contact-card a{font-size:14px;color:var(--text2)}
+.contact-card a:hover{color:var(--text)}
+
+/* Footer */
+footer{background:var(--surface);border-top:1px solid var(--border);padding:32px 5vw;text-align:center}
+footer p{font-size:13px;color:var(--text2)}
+footer .footer-links{display:flex;justify-content:center;gap:24px;margin-bottom:16px;flex-wrap:wrap}
+footer .footer-links a{font-size:13px;color:var(--text2)}
+footer .footer-links a:hover{color:var(--text)}
+
+/* Divider */
+.divider{max-width:1100px;margin:0 auto;border:none;border-top:1px solid var(--border)}
+
+/* Responsive */
+@media(max-width:480px){
+  .hero{padding:70px 5vw 60px}
+  section{padding:60px 5vw}
+  .plan-price{font-size:34px}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAVEGAÇÃO ── -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">
+      <div class="logo-icon">🔧</div>
+      <span>Ned AutoGestão</span>
+    </div>
+    <div class="nav-links">
+      <a href="#funcionalidades">Funcionalidades</a>
+      <a href="#planos">Planos</a>
+      <a href="#contato">Contato</a>
+    </div>
+    <a id="nav-download" href="#" class="nav-cta">⬇️ Baixar grátis</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-badge">Software para Oficinas Mecânicas</div>
+  <h1>Gestão completa da sua oficina <span>sem complicação</span></h1>
+  <p>Controle ordens de serviço, estoque, financeiro, revisões e agendamentos — tudo em um único sistema rápido e seguro.</p>
+  <div class="hero-btns">
+    <a id="hero-download" href="#" class="btn btn-primary">⬇️ Baixar agora — grátis</a>
+    <a href="#planos" class="btn btn-outline">Ver planos</a>
+  </div>
+  <p class="hero-note">✅ Funciona offline &nbsp;·&nbsp; 🔒 Dados ficam no seu computador &nbsp;·&nbsp; Windows</p>
+</section>
+
+<!-- ── FUNCIONALIDADES ── -->
+<section id="funcionalidades">
+  <div class="section-inner">
+    <p class="section-label">Funcionalidades</p>
+    <h2 class="section-title">Tudo que sua oficina precisa</h2>
+    <p class="section-sub">Desenvolvido para o dia a dia de mecânicos e gestores de oficina.</p>
+    <div class="features-grid">
+      <div class="feat-card">
+        <div class="feat-icon">📋</div>
+        <h3>Ordens de Serviço</h3>
+        <p>Crie, edite e acompanhe OS do orçamento até a entrega. Gere PDF profissional com um clique.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📦</div>
+        <h3>Controle de Estoque</h3>
+        <p>Cadastre peças, controle entradas e saídas, e receba alertas de estoque mínimo automaticamente.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">💰</div>
+        <h3>Financeiro</h3>
+        <p>Contas a pagar e receber, fluxo de caixa, pagamentos parcelados e relatórios mensais.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🔧</div>
+        <h3>Revisões e Troca de Óleo</h3>
+        <p>Registre revisões completas, acompanhe filtros e correias. Alertas automáticos de próxima troca.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📅</div>
+        <h3>Agendamentos</h3>
+        <p>Organize sua agenda de serviços, evite conflitos e converta agendamentos em OS com facilidade.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📈</div>
+        <h3>Relatórios</h3>
+        <p>Faturamento do mês, ticket médio, peças versus mão de obra e histórico completo por veículo.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">👥</div>
+        <h3>Gestão da Equipe</h3>
+        <p>Cadastre colaboradores, registre faltas e atrasos e tenha o resumo da sua equipe em um painel.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🚗</div>
+        <h3>Histórico do Veículo</h3>
+        <p>Veja toda a timeline de serviços e revisões por veículo. Fideliza clientes e gera confiança.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🔒</div>
+        <h3>Seguro e Offline</h3>
+        <p>Todos os dados ficam no seu computador. Funciona sem internet e com backup automático.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COMO FUNCIONA ── -->
+<section style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="section-inner">
+    <p class="section-label" style="text-align:center">Como funciona</p>
+    <h2 class="section-title" style="text-align:center">Comece em minutos</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Baixe e instale</h3>
+        <p>Instale o Ned AutoGestão no seu PC com Windows. Sem mensalidade para começar.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Cadastre sua oficina</h3>
+        <p>Configure o nome, logo e dados da sua empresa em Configurações.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Crie sua primeira O.S.</h3>
+        <p>Cadastre clientes, veículos e abra sua primeira ordem de serviço.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Ative seu plano</h3>
+        <p>Escolha o plano ideal e ative a licença para liberar todos os recursos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PLANOS ── -->
+<section id="planos">
+  <div class="section-inner">
+    <p class="section-label" style="text-align:center">Planos e preços</p>
+    <h2 class="section-title" style="text-align:center">Escolha o plano ideal</h2>
+    <p class="section-sub" style="text-align:center;margin-inline:auto">Sem fidelidade. Cancele quando quiser.</p>
+    <div class="plans-grid">
+
+      <!-- BÁSICO -->
+      <div class="plan-card">
+        <p class="plan-name">Básico</p>
+        <div class="plan-price">R$ 59<span>/mês</span></div>
+        <p class="plan-desc">Para oficinas que estão começando a se organizar.</p>
+        <ul class="plan-features">
+          <li>Ordens de Serviço ilimitadas</li>
+          <li>Controle de Estoque</li>
+          <li>Clientes e Veículos</li>
+          <li>PDF de O.S. e Orçamento</li>
+          <li>Backup automático</li>
+          <li class="off">Financeiro completo</li>
+          <li class="off">Relatórios avançados</li>
+          <li class="off">Agendamentos</li>
+          <li class="off">Gestão da Equipe</li>
+        </ul>
+        <a id="whatsapp-basico" href="#" class="plan-btn" target="_blank" rel="noopener">Contratar via WhatsApp</a>
+      </div>
+
+      <!-- PROFISSIONAL -->
+      <div class="plan-card popular">
+        <div class="popular-badge">MAIS POPULAR</div>
+        <p class="plan-name">Profissional</p>
+        <div class="plan-price">R$ 109<span>/mês</span></div>
+        <p class="plan-desc">Para oficinas que querem controle total das finanças.</p>
+        <ul class="plan-features">
+          <li>Tudo do Básico</li>
+          <li>Financeiro (contas a pagar/receber)</li>
+          <li>Fluxo de Caixa</li>
+          <li>Relatórios mensais completos</li>
+          <li>Histórico do Veículo</li>
+          <li>Revisões e Troca de Óleo</li>
+          <li>Alertas de revisão</li>
+          <li class="off">Gestão da Equipe</li>
+          <li class="off">Agendamentos avançados</li>
+        </ul>
+        <a id="whatsapp-profissional" href="#" class="plan-btn" target="_blank" rel="noopener">Contratar via WhatsApp</a>
+      </div>
+
+      <!-- EMPRESARIAL -->
+      <div class="plan-card">
+        <p class="plan-name">Empresarial</p>
+        <div class="plan-price">R$ 189<span>/mês</span></div>
+        <p class="plan-desc">Para oficinas com equipe e alto volume de serviços.</p>
+        <ul class="plan-features">
+          <li>Tudo do Profissional</li>
+          <li>Agendamentos completos</li>
+          <li>Gestão da Equipe (RH)</li>
+          <li>Controle de ocorrências</li>
+          <li>Suporte prioritário</li>
+          <li>Relatórios de equipe</li>
+          <li>Múltiplos usuários</li>
+          <li>Atualizações antecipadas</li>
+          <li>Treinamento incluso</li>
+        </ul>
+        <a id="whatsapp-empresarial" href="#" class="plan-btn" target="_blank" rel="noopener">Contratar via WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-section">
+  <h2>Experimente gratuitamente agora</h2>
+  <p>Baixe, instale e teste sem cadastro. Ative um plano quando estiver pronto.</p>
+  <a id="cta-download" href="#" class="btn btn-primary" style="font-size:16px;padding:15px 36px">⬇️ Baixar Ned AutoGestão</a>
+</section>
+
+<!-- ── CONTATO ── -->
+<section id="contato">
+  <div class="section-inner">
+    <p class="section-label" style="text-align:center">Contato</p>
+    <h2 class="section-title" style="text-align:center">Fale com a gente</h2>
+    <p class="section-sub" style="text-align:center;margin-inline:auto">Dúvidas sobre planos, ativação de licença ou suporte técnico.</p>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="icon">💬</div>
+        <h3>WhatsApp</h3>
+        <a id="contact-whatsapp" href="#" target="_blank" rel="noopener"><p id="contact-phone">—</p></a>
+      </div>
+      <div class="contact-card">
+        <div class="icon">✉️</div>
+        <h3>E-mail</h3>
+        <a id="contact-email" href="#"><p id="contact-email-text">—</p></a>
+      </div>
+      <div class="contact-card">
+        <div class="icon">📍</div>
+        <h3>Localização</h3>
+        <p id="contact-cidade">—</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-links">
+    <a href="#funcionalidades">Funcionalidades</a>
+    <a href="#planos">Planos</a>
+    <a href="#contato">Contato</a>
+  </div>
+  <p>© <span id="footer-ano"></span> Ned AutoGestão · Todos os direitos reservados · nedmotores.com.br</p>
+</footer>
+
+<!-- ── INIT ── -->
+<script>
+// Preenche dados de CONFIG no HTML
+document.getElementById('footer-ano').textContent = new Date().getFullYear();
+
+const wa = msg => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
+
+document.getElementById('nav-download').href       = CONFIG.url_download;
+document.getElementById('hero-download').href      = CONFIG.url_download;
+document.getElementById('cta-download').href       = CONFIG.url_download;
+
+document.getElementById('whatsapp-basico').href        = wa('Olá! Tenho interesse no plano Básico do Ned AutoGestão.');
+document.getElementById('whatsapp-profissional').href  = wa('Olá! Tenho interesse no plano Profissional do Ned AutoGestão.');
+document.getElementById('whatsapp-empresarial').href   = wa('Olá! Tenho interesse no plano Empresarial do Ned AutoGestão.');
+
+document.getElementById('contact-whatsapp').href   = wa('Olá! Gostaria de saber mais sobre o Ned AutoGestão.');
+document.getElementById('contact-phone').textContent  = CONFIG.telefone;
+document.getElementById('contact-email').href      = 'mailto:' + CONFIG.email;
+document.getElementById('contact-email-text').textContent = CONFIG.email;
+document.getElementById('contact-cidade').textContent = CONFIG.cidade;
+
+if (CONFIG.instagram) {
+  const insta = document.createElement('div');
+  insta.className = 'contact-card';
+  insta.innerHTML = `<div class="icon">📸</div><h3>Instagram</h3><a href="https://instagram.com/${CONFIG.instagram.replace('@','')}" target="_blank" rel="noopener"><p>${CONFIG.instagram}</p></a>`;
+  document.querySelector('.contact-grid').appendChild(insta);
+}
+</script>
+</body>
+</html>
