@@ -16,7 +16,7 @@ const CONFIG = {
   email:        "contato@nedmotores.com.br",
   instagram:    "",
   cidade:       "Cocal do Sul — SC",
-  url_download: "https://autogestao.nedmotores.com.br/download/NedAutoGestao-Setup.exe",
+  url_download: "https://autogestao.nedmotores.com.br/download/NedAutoGestao-Setup-1.0.0.exe",
   versao_atual: "1.0.0",
 };
 </script>
@@ -844,16 +844,19 @@ async function enviarCadastroDownload() {
       body: JSON.stringify({ nome, documento: doc, telefone: tel, email,
         _subject: 'Novo download — Ned AutoGestão' })
     });
-    if (resp.ok) {
-      const link = document.createElement('a');
-      link.href = CONFIG.url_download; link.target = '_blank'; link.rel = 'noopener';
-      document.body.appendChild(link); link.click(); document.body.removeChild(link);
-      document.getElementById('modal-form-area').style.display = 'none';
-      document.getElementById('modal-sucesso').style.display = 'block';
-    } else { throw new Error(); }
+    // Inicia o download independentemente do resultado do formulário
+    const link = document.createElement('a');
+    link.href = CONFIG.url_download; link.target = '_blank'; link.rel = 'noopener';
+    document.body.appendChild(link); link.click(); document.body.removeChild(link);
+    document.getElementById('modal-form-area').style.display = 'none';
+    document.getElementById('modal-sucesso').style.display = 'block';
   } catch(e) {
-    btn.disabled = false; btn.textContent = '⬇️ Baixar agora';
-    alert('Erro ao enviar. Tente novamente.');
+    // Mesmo com erro no formulário, libera o download
+    const link = document.createElement('a');
+    link.href = CONFIG.url_download; link.target = '_blank'; link.rel = 'noopener';
+    document.body.appendChild(link); link.click(); document.body.removeChild(link);
+    document.getElementById('modal-form-area').style.display = 'none';
+    document.getElementById('modal-sucesso').style.display = 'block';
   }
 }
 
