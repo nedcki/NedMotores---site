@@ -248,6 +248,23 @@ footer p{font-size:13px;color:var(--text2)}
   .plan-price{font-size:36px}
   .marketing-cta{flex-direction:column;text-align:center}
 }
+/* ── GALERIA DE TELAS ── */
+#telas{background:var(--bg);border-top:1px solid var(--border);padding:80px max(5vw,16px)}
+.ss-tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:20px;scrollbar-width:none}
+.ss-tabs::-webkit-scrollbar{display:none}
+.ss-tab{flex-shrink:0;padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
+.ss-tab:hover{border-color:var(--primary);color:var(--primary)}
+.ss-tab.active{background:var(--primary);color:#000;border-color:var(--primary)}
+.ss-frame{border-radius:12px;overflow:hidden;border:1px solid var(--border);box-shadow:0 8px 40px #0008;background:var(--surface);max-width:960px;margin:0 auto}
+.ss-frame img{width:100%;display:block;transition:opacity .2s}
+.ss-caption{margin-top:14px;font-size:13px;color:var(--text2);text-align:center;line-height:1.5;max-width:600px;margin-inline:auto}
+/* ── MOBILE CTA ── */
+.mobile-send{display:none;flex-direction:column;align-items:center;gap:10px;margin-top:16px}
+.mobile-send p{font-size:13px;color:var(--text2);margin:0;text-align:center}
+.mobile-send-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.btn-send-wa{background:#25d366;color:#fff;padding:12px 22px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn-send-email{background:var(--surface);color:var(--text1);border:1px solid var(--border);padding:12px 22px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+@media(max-width:640px){.mobile-send{display:flex}.hero-download-desktop{display:none!important}}
 </style>
 </head>
 <body>
@@ -261,6 +278,7 @@ footer p{font-size:13px;color:var(--text2)}
     </div>
     <div class="nav-links">
       <a href="#funcionalidades">Funcionalidades</a>
+      <a href="#telas">Telas</a>
       <a href="#planos">Planos</a>
       <a href="#contato">Contato</a>
     </div>
@@ -279,6 +297,13 @@ footer p{font-size:13px;color:var(--text2)}
     <a href="#planos" class="btn btn-outline">Ver planos e preços</a>
   </div>
   <p class="hero-note">✅ Funciona offline &nbsp;·&nbsp; 🔒 Dados no seu computador &nbsp;·&nbsp; Windows</p>
+  <div class="mobile-send">
+    <p>📱 Vendo no celular? Envie o link para baixar no PC da oficina:</p>
+    <div class="mobile-send-btns">
+      <a class="btn-send-wa" id="mobile-wa-link" href="#">💬 Enviar pelo WhatsApp</a>
+      <a class="btn-send-email" id="mobile-email-link" href="#">📧 Enviar por E-mail</a>
+    </div>
+  </div>
 </section>
 
 <!-- ── FUNCIONALIDADES ── -->
@@ -392,6 +417,28 @@ footer p{font-size:13px;color:var(--text2)}
         <p>Escolha o plano ideal e ative a licença para liberar todos os recursos.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ── TELAS ── -->
+<section id="telas">
+  <div class="section-inner" style="max-width:1100px">
+    <p class="section-label" style="text-align:center">Veja na prática</p>
+    <h2 class="section-title" style="text-align:center">O sistema completo na sua tela</h2>
+    <p class="section-sub" style="text-align:center;margin-inline:auto;margin-bottom:28px">Cada módulo pensado para a rotina real de uma oficina mecânica.</p>
+    <div class="ss-tabs" id="ss-tabs">
+      <button class="ss-tab active" onclick="showScreen(0)">🏠 Painel</button>
+      <button class="ss-tab" onclick="showScreen(1)">📦 Estoque</button>
+      <button class="ss-tab" onclick="showScreen(2)">🔧 Revisão / Óleo</button>
+      <button class="ss-tab" onclick="showScreen(3)">💰 Financeiro</button>
+      <button class="ss-tab" onclick="showScreen(4)">📊 Relatórios</button>
+      <button class="ss-tab" onclick="showScreen(5)">👥 Equipe</button>
+      <button class="ss-tab" onclick="showScreen(6)">📋 Histórico</button>
+    </div>
+    <div class="ss-frame">
+      <img id="ss-img" src="screenshots/painel.png" alt="Painel do sistema">
+    </div>
+    <p class="ss-caption" id="ss-caption">Painel principal com visão geral de OS abertas, alertas de estoque e revisões pendentes.</p>
   </div>
 </section>
 
@@ -848,6 +895,37 @@ if (CONFIG.instagram) {
   el.innerHTML = `<div class="icon">📸</div><h3>Instagram</h3><a href="https://instagram.com/${CONFIG.instagram.replace('@','')}" target="_blank" rel="noopener"><p>${CONFIG.instagram}</p></a>`;
   document.getElementById('contact-grid').appendChild(el);
 }
+
+// ── GALERIA DE TELAS ──
+const SS_DATA = [
+  {src:'screenshots/painel.png',    caption:'Painel principal com visão geral de OS abertas, alertas de estoque e revisões pendentes.'},
+  {src:'screenshots/estoque.png',   caption:'Controle de estoque com alertas de mínimo e histórico de movimentações.'},
+  {src:'screenshots/revisao.png',   caption:'Módulo de revisão e troca de óleo com checklist de filtros e próxima troca programada.'},
+  {src:'screenshots/financeiro.png',caption:'Financeiro completo: contas a pagar/receber, fluxo de caixa e pagamentos parcelados.'},
+  {src:'screenshots/relatorios.png',caption:'Relatórios gerenciais de faturamento, OS por período e desempenho da equipe.'},
+  {src:'screenshots/equipe.png',    caption:'Gestão da equipe com controle de acesso por perfil — mecânico, gerente ou administrador.'},
+  {src:'screenshots/historico.png', caption:'Histórico completo do veículo: todas as OS e revisões em ordem cronológica.'},
+];
+function showScreen(i) {
+  const img = document.getElementById('ss-img');
+  const cap = document.getElementById('ss-caption');
+  const tabs = document.querySelectorAll('#ss-tabs .ss-tab');
+  img.style.opacity='0';
+  setTimeout(()=>{ img.src=SS_DATA[i].src; img.alt=SS_DATA[i].caption; cap.textContent=SS_DATA[i].caption; img.style.opacity='1'; },150);
+  tabs.forEach((t,j)=>t.classList.toggle('active',j===i));
+}
+
+// ── MOBILE SEND LINKS ──
+(function(){
+  const url = CONFIG.url_download;
+  const msg = encodeURIComponent('Baixe o Ned AutoGestão no PC da oficina: ' + url);
+  const subj = encodeURIComponent('Ned AutoGestão — link de download');
+  const body = encodeURIComponent('Acesse o link abaixo no seu computador com Windows para baixar o sistema:\n\n' + url);
+  const waEl = document.getElementById('mobile-wa-link');
+  const emEl = document.getElementById('mobile-email-link');
+  if (waEl) waEl.href = 'https://wa.me/?text=' + msg;
+  if (emEl) emEl.href = 'mailto:?subject=' + subj + '&body=' + body;
+})();
 
 // ── AJUDA ──
 function abrirAjuda() {
