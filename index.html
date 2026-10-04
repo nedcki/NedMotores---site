@@ -546,8 +546,6 @@ footer p{font-size:13px;color:var(--text2)}
       </div>
       <div class="modal-body">
         <div class="field"><label>Nome completo *</label><input type="text" id="dl-nome" placeholder="Seu nome completo" required></div>
-        <div class="field"><label>CPF ou CNPJ *</label><input type="text" id="dl-doc" placeholder="000.000.000-00" maxlength="18" inputmode="numeric" oninput="mascaraDocumento(this)" required></div>
-        <div class="field"><label>Telefone / WhatsApp *</label><input type="tel" id="dl-tel" placeholder="(XX) 9XXXX-XXXX" maxlength="15" inputmode="numeric" oninput="mascaraTelefone(this)" required></div>
         <div class="field"><label>E-mail *</label><input type="email" id="dl-email" placeholder="seu@email.com" required></div>
       </div>
       <div class="modal-footer">
@@ -558,7 +556,7 @@ footer p{font-size:13px;color:var(--text2)}
     <div class="modal-success" id="modal-sucesso">
       <div class="s-icon">✅</div>
       <h3>Download iniciando!</h3>
-      <p>Obrigado! Seu download foi iniciado.<br>Em breve entraremos em contato.</p>
+      <p>Obrigado! Seu download foi iniciado.<br>Aproveite o período de teste, aguardamos seu contato.</p>
       <button class="modal-cancel" onclick="fecharModal()" style="margin-top:20px;font-size:14px;color:var(--text)">Fechar</button>
     </div>
   </div>
@@ -839,7 +837,7 @@ const wa = msg => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(ms
 function abrirModalDownload() {
   document.getElementById('modal-form-area').style.display = '';
   document.getElementById('modal-sucesso').style.display = 'none';
-  ['dl-nome','dl-doc','dl-tel','dl-email'].forEach(id => document.getElementById(id).value = '');
+  ['dl-nome','dl-email'].forEach(id => document.getElementById(id).value = '');
   const btn = document.getElementById('btn-submit-download');
   btn.disabled = false;
   btn.textContent = '⬇️ Baixar agora';
@@ -853,17 +851,15 @@ function fecharModal() {
 
 async function enviarCadastroDownload() {
   const nome  = document.getElementById('dl-nome').value.trim();
-  const doc   = document.getElementById('dl-doc').value.trim();
-  const tel   = document.getElementById('dl-tel').value.trim();
   const email = document.getElementById('dl-email').value.trim();
-  if (!nome || !doc || !tel || !email) { alert('Por favor, preencha todos os campos.'); return; }
+  if (!nome || !email) { alert('Por favor, preencha todos os campos.'); return; }
   const btn = document.getElementById('btn-submit-download');
   btn.disabled = true; btn.textContent = 'Enviando...';
   try {
     const resp = await fetch('https://formspree.io/f/mppwyele', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ nome, documento: doc, telefone: tel, email,
+      body: JSON.stringify({ nome, email,
         _subject: 'Novo download — Ned AutoGestão' })
     });
     // Inicia o download independentemente do resultado do formulário
