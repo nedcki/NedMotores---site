@@ -241,6 +241,9 @@ footer p{font-size:13px;color:var(--text2)}
 .modal-success .s-icon{font-size:48px;margin-bottom:12px}
 .modal-success h3{font-size:18px;font-weight:800;margin-bottom:8px}
 .modal-success p{font-size:14px;color:var(--text2)}
+.modal-privacy{font-size:12px;color:var(--text2);line-height:1.5;margin-top:2px}
+.modal-aviso{margin-top:18px;text-align:left;background:#f59e0b12;border:1px solid #f59e0b40;border-radius:10px;padding:14px 16px;font-size:13px;color:var(--text);line-height:1.55}
+.modal-aviso strong{color:var(--primary)}
 
 @media(max-width:480px){
   .hero{padding:72px 16px 60px}
@@ -547,6 +550,7 @@ footer p{font-size:13px;color:var(--text2)}
       <div class="modal-body">
         <div class="field"><label>Nome completo *</label><input type="text" id="dl-nome" placeholder="Seu nome completo" required></div>
         <div class="field"><label>E-mail *</label><input type="email" id="dl-email" placeholder="seu@email.com" required></div>
+        <p class="modal-privacy">🔒 Usamos seu nome e e-mail apenas para contato sobre o Ned AutoGestão.</p>
       </div>
       <div class="modal-footer">
         <button class="btn-download-submit" id="btn-submit-download" onclick="enviarCadastroDownload()">⬇️ Baixar agora</button>
@@ -557,6 +561,10 @@ footer p{font-size:13px;color:var(--text2)}
       <div class="s-icon">✅</div>
       <h3>Download iniciando!</h3>
       <p>Obrigado! Seu download foi iniciado.<br>Aproveite o período de teste, aguardamos seu contato.</p>
+      <div class="modal-aviso">
+        <strong>Apareceu uma tela azul do Windows ao instalar?</strong><br>
+        É um aviso comum em programas novos. Clique em <strong>Mais informações</strong> e depois em <strong>Executar assim mesmo</strong>.
+      </div>
       <button class="modal-cancel" onclick="fecharModal()" style="margin-top:20px;font-size:14px;color:var(--text)">Fechar</button>
     </div>
   </div>
@@ -760,7 +768,7 @@ footer p{font-size:13px;color:var(--text2)}
       <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px">
         <h3 style="font-size:15px;font-weight:700;margin-bottom:8px">🧪 Período de Teste Gratuito</h3>
         <p style="font-size:14px;line-height:1.7;color:var(--text2)">
-          O usuário tem <strong>15 dias corridos de teste gratuito</strong> a partir da instalação, sem necessidade de cadastro ou pagamento. Durante esse período, é possível utilizar todas as funcionalidades do plano Gestão Total — Financeiro, Gestão da Equipe, Relatórios DRE e muito mais — para decidir com segurança qual plano atende à sua necessidade.
+          O usuário tem <strong>15 dias corridos de teste gratuito</strong> a partir da instalação, sem cartão e sem pagamento. Para baixar, pedimos apenas nome e e-mail, usados somente para contato sobre o Ned AutoGestão. Durante esse período, é possível utilizar todas as funcionalidades do plano Gestão Total — Financeiro, Gestão da Equipe, Relatórios DRE e muito mais — para decidir com segurança qual plano atende à sua necessidade.
         </p>
       </div>
 
